@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @CrossOrigin("*")
@@ -17,7 +18,7 @@ public class RegisterController {
     RegisterServices registerServices;
 
     @GetMapping()
-    public ArrayList<Task> getTasks(){
+    public List<Task> getTasks(){
         return registerServices.getTasks();
     }
     @PostMapping()
@@ -25,7 +26,7 @@ public class RegisterController {
         return this.registerServices.saveTask(task);
     }
     @GetMapping( path = "{id}")
-    public ArrayList<Task> findTaskbyId(@PathVariable("id") long id){
+    public List<Task> findTaskbyId(@PathVariable("id") long id){
         return this.registerServices.findId(id);
     }
     @DeleteMapping(value="{id}")
@@ -37,5 +38,4 @@ public class RegisterController {
             return "No se pudo eliminar la tarea con id" + id;
         }
     }
-
 }

@@ -1,12 +1,12 @@
 package com.nikovd.app.rest.Model;
 
-import com.sun.istack.NotNull;
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.validator.constraints.NotBlank;
 
-
-import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 
 @Entity
@@ -17,22 +17,24 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private long id;
-    @Column
-    @NotNull
-    @NotEmpty(message = "El title no puede estar en blanco")
+    @Column( nullable = false)
+    @NotBlank(message = "El title no puede estar en blanco")
     private String title;
-    @Column
+    @Column ( nullable = false)
+    @NotBlank (message = "La descripcion no puede estar en blanco")
     private String description;
-    @Column
+    @Column ( nullable = false)
     @CreationTimestamp
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date creationDate;
-    @Column
+    @Column ( nullable = false)
+    @NotBlank (message = "El estado no puede estar en blanco")
     private String state;
 
     public long getId(){
         return id;
     }
-    public void setId(long id){
+    public void setId(long s){
         this.id = id;
     }
     public String getTitle(){
@@ -56,7 +58,7 @@ public class Task {
     public String getState(){
         return state;
     }
-    public void setstate(String state) {
+    public void setState(String state) {
         this.state = state;
     }
 

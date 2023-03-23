@@ -10,6 +10,7 @@ import Column from 'primevue/column';
 import Menubar from 'primevue/menubar';
 import Dialog from 'primevue/dialog';
 import Dropdown from 'primevue/dropdown';
+import { useField, useForm } from 'vee-validate';
 
 
 //theme
@@ -23,6 +24,8 @@ import "primeicons/primeicons.css";
 const app = createApp(App);
 app.use(PrimeVue);
 app.use(ToastService);
+app.use(useField);
+app.use(useForm);
 
 app.component('DataTable', DataTable);
 app.component('DataColumn', Column);
