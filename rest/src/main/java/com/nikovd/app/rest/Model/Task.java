@@ -26,7 +26,9 @@ public class Task {
     @Column ( nullable = false)
     @CreationTimestamp
     @JsonFormat(pattern = "dd-MM-yyyy")
+//    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
+
     @Column ( nullable = false)
     @NotBlank (message = "El estado no puede estar en blanco")
     private String state;

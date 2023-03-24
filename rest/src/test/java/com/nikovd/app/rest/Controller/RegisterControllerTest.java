@@ -1,8 +1,7 @@
-package com.nikovd.app.rest.Services;
-
+package com.nikovd.app.rest.Controller;
 
 import com.nikovd.app.rest.Model.Task;
-import com.nikovd.app.rest.Repository.RegisterRepository;
+import com.nikovd.app.rest.Services.RegisterServices;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,21 +11,25 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class RegisterServicesTest {
+class RegisterControllerTest {
+
+    private MockMvc mockMvc;
+
+    @InjectMocks
+    private RegisterController registerController;
 
     @Mock
-    private RegisterRepository registerRepository;
-    @InjectMocks
-    private RegisterServices registerServices;
+    private RegisterServices    registerServices;
 
     private Task task;
 
@@ -44,29 +47,32 @@ public class RegisterServicesTest {
     @DisplayName("Listar Tarea")
     @Test
     void getTasks(){
-        when(registerRepository.findAll()).thenReturn(Arrays.asList(task));
+        when(registerController.getTasks()).thenReturn(Arrays.asList(task));
         assertNotNull(registerServices.getTasks());
-    };
+    }
 
     @DisplayName("Guardar una tarea")
     @Test
     void saveTask(){
-        when(registerRepository.save(any(Task.class))).thenReturn(task);
+        when(registerController.saveTask(any())).thenReturn(task);
         assertNotNull(registerServices.saveTask(new Task()));
     }
 
     @DisplayName("Listar tarea por ID")
     @Test
     void findId(){
-        when(registerRepository.findById(task.getId())).thenReturn(Arrays.asList(task));
+        when(registerController.findTaskbyId(task.getId())).thenReturn(Arrays.asList(task));
         assertNotNull(registerServices.findId(task.getId()));
     }
 
     @DisplayName("Eliminar tarea")
     @Test
     public void deleteTask() {
-        String r = String.valueOf(registerServices.deleteTask(Long.parseLong(String.valueOf(1))));
+        String r = String.valueOf(registerController.deleteTaskbyId(Long.parseLong(String.valueOf(1))));
         assertNotNull(r);
     }
+
+
+
 
 }
